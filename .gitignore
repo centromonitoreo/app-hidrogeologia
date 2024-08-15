@@ -1,0 +1,115 @@
+# Carpetas de ambientes virtuales
+.venv/
+env/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de configuración del entorno
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos de configuración de editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de log
+*.log
+*.log.*
+*.out
+
+# Archivos temporales
+*.tmp
+*.temp
+*.swp
+*.bak
+*.pid
+*.pid.lock
+*.gz
+.DS_Store
+
+# Archivos de depuración
+debug.log
+
+# Archivos creados por sistemas operativos
+Thumbs.db
+ehthumbs.db
+.DS_Store
+*.stackdump
+*.vscode/
+*.swp
+*.swo
+*.out
+*.bak
+
+# Archivos de bases de datos locales
+*.sqlite3
+
+# Archivos de compilación
+*.o
+*.so
+*.exe
+*.dll
+*.dylib
+*.pdb
+*.class
+*.pyc
+
+# Distribución / paquetes
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Archivos de cobertura de pruebas
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Archivos de Jupyter Notebook
+.ipynb_checkpoints
+
+# Archivos específicos de Pycharm
+.idea/
+*.iml
+
+# Archivos específicos de VS Code
+.vscode/
+.history/
+
+# Archivos específicos de MacOS
+.DS_Store
+
+# Archivos específicos de Windows
+Thumbs.db
+ehthumbs.db
+
+# Archivos de producción
+instance/
+.webassets-cache
