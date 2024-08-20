@@ -9,7 +9,6 @@ from io import BytesIO
 import base64
 from tkinter import filedialog
 import os
-from hydrogeology_app.calculadora import HydrogeologyCalculator
 
 class HydrogeologyApp:
     def __init__(self, root):
