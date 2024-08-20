@@ -307,7 +307,7 @@ def piper_graphic(df: pd.DataFrame, col_style: str = None, col_color: str = None
       characteristics of groundwater.
     - The function adjusts the font size of the legend based on the number of labels and the maximum label length.
     """
-    img = imageio.imread("PiperCompleto.png")
+    img = imageio.imread("./data/PiperCompleto.png")
     df["total_anion"] = (
         df["Sulfatos (meq/L)"]
         + df["Bicarbonato (meq/L)"]
@@ -424,7 +424,7 @@ def stiff_graphic(df: pd.DataFrame, col_point: str, col_date: str):
         point_id = point_id if not isinstance(point_id, tuple) else point_id[0]
         fig, ax = plt.subplots(figsize=(8, 10))
         height = 0
-        max_value = 0
+        max_value = 1
         y_label_data = []
         y_label_data_str = []
         date_groups = len(point_values.groupby([col_date]))
@@ -473,6 +473,7 @@ def stiff_graphic(df: pd.DataFrame, col_point: str, col_date: str):
                     "Alert Message",
                     f"The point {point_id} for the date {date.strftime('%Y-%m-%d')} has more than one record",
                 )
+        
         plt.xlim(-max_value, max_value)
         plt.ylim(0, max(y_label_data) + 1)
         interval = round(max_value * 2 / 10, 1)
