@@ -82,16 +82,20 @@ class TableManagement:
         self.frame_table.grid(row=0, column=0, sticky="nsew")
         self.frame_table.config(width=1200)
         canvas = tk.Canvas(self.frame_table)
+
         canvas.grid(row=0, column=0, sticky="nsew")
         canvas.config(width=1200)
         horizontal_scroll = tk.Scrollbar(
             self.frame_table, orient="horizontal", command=canvas.xview
         )
         horizontal_scroll.grid(row=1, column=0, sticky="nsew")
+        frame_treeview = tk.Frame(canvas)
+        frame_treeview.pack()
+        canvas.create_window((0, 0), window=frame_treeview, anchor="nw")
         self.treeview = ttk.Treeview(
-            canvas, xscrollcommand=horizontal_scroll.set
+            frame_treeview
         )
-        self.treeview.grid(row=0, column=0, sticky="nsew")
+        self.treeview.pack()
         data_copy = self.df_data.copy()
         self.data_tree = self.df_data.copy()
         self.treeview["columns"] = tuple(["ID"] + data_copy.columns.to_list())
@@ -112,14 +116,11 @@ class TableManagement:
             self.treeview.column(column, width=length, anchor=tk.CENTER)
             self.treeview.heading(column, text=column)
         self.insert_data()
-        canvas.configure(scrollregion=canvas.bbox("all"))
-        canvas.create_window((0, 0), window=self.treeview, anchor=tk.NW)
-        self.frame_table.bind(
-            "<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-        self.app_hydrogeology.canvas_frame.create_window(
-            (10, 425), window=self.frame_table, anchor="nw"
-        )
+        frame_treeview.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox("all"))
+
+        # Asegurar que el Treeview se ajuste al redimensionar la ventana
+        frame_treeview.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
         export_frame = tk.Frame(self.app_hydrogeology.canvas_frame)
         self.combobox_group = self.app_hydrogeology.generate_combobox(
             export_frame, "Seleccionar Columna Agrupación: ", 0, 2
@@ -174,6 +175,7 @@ class TableManagement:
         self.app_hydrogeology.canvas_frame.create_window(
             (570, 375), window=export_frame, anchor="nw"
         )
+        self.app_hydrogeology.canvas_frame.create_window((10,425), window=self.frame_table, anchor="nw")
 
     def insert_data(self):
         """
@@ -213,7 +215,7 @@ class TableManagement:
         This method prompts the user to select a save location and filename, and then exports the data
         displayed in the Treeview to an Excel file at the specified location.
         """
-        file_location = ttk.filedialog.asksaveasfilename(
+        file_location = tk.filedialog.asksaveasfilename(
             defaultextension=".xlsx", filetypes=[("Archivos de Excel", "*.xlsx")]
         )
         if file_location:
@@ -227,7 +229,7 @@ class TableManagement:
         saves the Mifflin, Gibbs, Piper, and Stiff diagrams using the data in the table. The figures are saved
         as image files in the selected directory.
         """
-        folder_path = ttk.filedialog.askdirectory()
+        folder_path = tk.filedialog.askdirectory()
         if folder_path:
             try:
                 colgrup = self.combobox_group.get()
