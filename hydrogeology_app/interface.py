@@ -446,16 +446,20 @@ class HydrogeologyApp:
         self.frame_table.grid(row=0, column=0, sticky="nsew")
         self.frame_table.config(width=1200)
         canvas = tk.Canvas(self.frame_table)
-        canvas.grid(row=0, column=0, sticky="nsew")
+
+        canvas.pack(side="left", fill="both", expand=True)
         canvas.config(width=1200)
         horizontal_scroll = tk.Scrollbar(
             self.frame_table, orient="horizontal", command=canvas.xview
         )
-        horizontal_scroll.grid(row=1, column=0, sticky="nsew")
+        horizontal_scroll.pack(side="bottom", fill="x")
+        frame_treeview = tk.Frame(canvas)
+        frame_treeview.pack()
+        canvas.create_window((0, 0), window=frame_treeview, anchor="nw")
         self.treeview = ttk.Treeview(
-            canvas, xscrollcommand=horizontal_scroll.set
+            frame_treeview
         )
-        self.treeview.grid(row=0, column=0, sticky="nsew")
+        self.treeview.pack()
         data_copy = self.df_data.copy()
         self.data_tree = self.df_data.copy()
         self.treeview["columns"] = tuple(["ID"] + data_copy.columns.to_list())
@@ -476,14 +480,11 @@ class HydrogeologyApp:
             self.treeview.column(column, width=length, anchor=tk.CENTER)
             self.treeview.heading(column, text=column)
         self.insert_data()
-        canvas.configure(scrollregion=canvas.bbox("all"))
-        canvas.create_window((0, 0), window=self.treeview, anchor=tk.NW)
-        self.frame_table.bind(
-            "<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-        self.canvas_frame.create_window(
-            (10, 425), window=self.frame_table, anchor="nw"
-        )
+        frame_treeview.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox("all"))
+
+        # Asegurar que el Treeview se ajuste al redimensionar la ventana
+        frame_treeview.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
         export_frame = tk.Frame(self.canvas_frame)
         self.combobox_group = self.generate_combobox(
             export_frame, "Seleccionar Columna Agrupación: ", 0, 2
@@ -538,6 +539,7 @@ class HydrogeologyApp:
         self.canvas_frame.create_window(
             (570, 375), window=export_frame, anchor="nw"
         )
+        self.canvas_frame.create_window((10,425), window=self.frame_table, anchor="nw")
 
     def insert_data(self):
         """
