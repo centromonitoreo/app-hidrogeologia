@@ -10,6 +10,7 @@ import base64
 from tkinter import filedialog
 import os
 
+
 class HydrogeologyApp:
     def __init__(self, root):
         self.root = root
@@ -48,10 +49,10 @@ class HydrogeologyApp:
     def initialize_ui(self):
         with open("./data/analitica.png", "rb") as image_file:
             image_b64 = base64.b64encode(image_file.read())
-        
+
         image = Image.open(BytesIO(base64.b64decode(image_b64)))
         self.photo = ImageTk.PhotoImage(image)
-        
+
         self.root.wm_iconphoto(False, self.photo)
         self.root.title("HydroGeoGraph")
         self.root.geometry("1250x750")
@@ -216,13 +217,11 @@ class HydrogeologyApp:
         boton.grid(row=row, column=col, sticky="w")
 
     def select_file(self):
-        self.clean_frame(
-            [self.frame_sheet, self.frame_columns, self.frame_parameters]
-        )
+        self.clean_frame([self.frame_sheet, self.frame_columns, self.frame_parameters])
         self.file = filedialog.askopenfilename(
             filetypes=[("Archivos de Excel", "*.xlsx")]
         )
-        
+
         if not os.path.exists(self.file):
             return
         workbook = load_workbook(filename=self.file)
@@ -259,7 +258,6 @@ class HydrogeologyApp:
             self.set_value_combo(self.combobox_potassium, "Potasio (mg/L)")
             self.set_value_combo(self.combobox_sodium, "Sodio (mg/L)")
             self.set_value_combo(self.combobox_sulfates, "Sulfatos (mg/L SO4-2)")
-           
 
     def check_completion_frame(self, frame, name_frame):
         for widget in frame.winfo_children():
@@ -415,4 +413,3 @@ class HydrogeologyApp:
     def ajustar_xpadx(self, frame, nuevo_xpadx):
         for widget in frame.winfo_children():
             widget.grid_configure(padx=nuevo_xpadx)
-

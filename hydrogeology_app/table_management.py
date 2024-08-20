@@ -92,9 +92,7 @@ class TableManagement:
         frame_treeview = tk.Frame(canvas)
         frame_treeview.pack()
         canvas.create_window((0, 0), window=frame_treeview, anchor="nw")
-        self.treeview = ttk.Treeview(
-            frame_treeview
-        )
+        self.treeview = ttk.Treeview(frame_treeview)
         self.treeview.pack()
         data_copy = self.df_data.copy()
         self.data_tree = self.df_data.copy()
@@ -120,7 +118,9 @@ class TableManagement:
         canvas.config(scrollregion=canvas.bbox("all"))
 
         # Asegurar que el Treeview se ajuste al redimensionar la ventana
-        frame_treeview.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        frame_treeview.bind(
+            "<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
         export_frame = tk.Frame(self.app_hydrogeology.canvas_frame)
         self.combobox_group = self.app_hydrogeology.generate_combobox(
             export_frame, "Seleccionar Columna Agrupación: ", 0, 2
@@ -175,7 +175,9 @@ class TableManagement:
         self.app_hydrogeology.canvas_frame.create_window(
             (570, 375), window=export_frame, anchor="nw"
         )
-        self.app_hydrogeology.canvas_frame.create_window((10,425), window=self.frame_table, anchor="nw")
+        self.app_hydrogeology.canvas_frame.create_window(
+            (10, 425), window=self.frame_table, anchor="nw"
+        )
 
     def insert_data(self):
         """
@@ -278,4 +280,3 @@ class TableManagement:
         """
         calculator = HydrogeologyCalculator(self)
         calculator.create_calculator()
-
