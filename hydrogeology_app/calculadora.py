@@ -130,7 +130,7 @@ class HydrogeologyCalculator:
         indices = []
         for row in self.app_table_mananegement.treeview.selection():
             self.app_table_mananegement.treeview.selection_remove(row)
-
+        
         for _, row in self.app_table_mananegement.data_tree.iterrows():
             try:
                 columns = re.findall(r'\[\$"(.*?)"\]', expression)
@@ -159,6 +159,10 @@ class HydrogeologyCalculator:
         if not indices:
             print("No matching rows found.")
 
+        if len(indices)>0:
+            for indice in indices:
+                self.app_table_mananegement.treeview.selection_add(self.app_table_mananegement.treeview.get_children()[int(indice)])
+            self.calculator_window.destroy()
 
         return indices
 
@@ -171,6 +175,7 @@ class HydrogeologyCalculator:
         """
         expression = self.entry_formula.get()
         self.evaluate_expression(expression)
+
 
     def create_calculator(self):
         """
