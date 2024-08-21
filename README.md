@@ -51,6 +51,16 @@ Instalación de dependencias:
 1. Navega al directorio `dist/main` donde se encuentra el archivo `main.exe`.
 2. Haz doble clic en `main.exe` para abrir la aplicación.
 
+## Formato de Datos
+
+Los datos deben estar en formato *melt* con las siguientes columnas mínimas:
+
+- `punto`: Identificación del punto de monitoreo.
+- `fecha`: Fecha de la medición.
+- `parametro`: Tipo de parámetro (ej. pH, conductividad).
+- `valores`: Valores correspondientes a cada parámetro.
+
 ## Contribuciones
 
 Las contribuciones son bienvenidas. Sigue las normas del repositorio para más detalles.
+
