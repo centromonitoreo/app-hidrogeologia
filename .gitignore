@@ -55,7 +55,6 @@ ehthumbs.db
 # Archivos de compilación
 *.o
 *.so
-*.exe
 *.dll
 *.dylib
 *.pdb
@@ -64,9 +63,7 @@ ehthumbs.db
 
 # Distribución / paquetes
 .Python
-build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
