@@ -188,7 +188,6 @@ class TableManagement:
         data_copy : pd.DataFrame
             The DataFrame containing the data to be inserted into the Treeview for display.
         """
-        print(self.df_data)
         if len(self.df_data) > 0:
             self.df_data.index = [str(indice) for indice in self.df_data.index.tolist()]
             self.df_data[self.app_hydrogeology.combobox_date.get()] = pd.to_datetime(

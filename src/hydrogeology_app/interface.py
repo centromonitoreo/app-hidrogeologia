@@ -287,7 +287,6 @@ class HydrogeologyApp:
             data_copy[col_date] = pd.to_datetime(
                 data_copy[col_date], format=date_format
             )
-            print(data_copy[col_date])
             return True
         except KeyError:
             tk.messagebox.showinfo(
