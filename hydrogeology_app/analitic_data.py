@@ -56,7 +56,6 @@ def calculate_meq_table(
       that provides conversion factors from mg/L to meq/L for each parameter.
     """
     df_analysis = data.copy()
-    print(column_parameter)
     df_analysis[column_parameter] = df_analysis[column_parameter].replace(dict_rename)
     index_ = df_analysis.columns.tolist()
     index_.remove(column_parameter)

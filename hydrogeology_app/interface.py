@@ -30,6 +30,7 @@ class HydrogeologyApp:
         self.combobox_potassium = None
         self.combobox_sodium = None
         self.combobox_sulfates = None
+        self.combobox_conductivity = None
         self.frame_parameters = None
         self.frame_columns = None
         self.frame_parameters_2 = None
@@ -173,6 +174,13 @@ class HydrogeologyApp:
             0,
             "Horizontal",
         )
+        self.combobox_conductivity = self.generate_combobox(
+            self.frame_parameters_2,
+            "Etiqueta Conductividad (µS/cm): ",
+            5,
+            0,
+            "Horizontal",
+        )
         self.canvas_frame.create_window(
             (800, 170), window=self.frame_parameters_2, anchor="nw"
         )
@@ -258,6 +266,7 @@ class HydrogeologyApp:
             self.set_value_combo(self.combobox_potassium, "Potasio (mg/L)")
             self.set_value_combo(self.combobox_sodium, "Sodio (mg/L)")
             self.set_value_combo(self.combobox_sulfates, "Sulfatos (mg/L SO4-2)")
+            self.set_value_combo(self.combobox_conductivity, "Conductividad (µS/cm)")
 
     def check_completion_frame(self, frame, name_frame):
         for widget in frame.winfo_children():
@@ -358,6 +367,11 @@ class HydrogeologyApp:
             if len(self.combobox_bicarbonate.get()) > 0
             else "null_bicarbonato"
         )
+        para_conductivity = (
+            self.combobox_conductivity.get()
+            if len(self.combobox_conductivity.get()) > 0
+            else "null_conductivity"
+        )
         keys_repetidos = self.find_duplicates(
             [
                 para_sulfates,
@@ -369,6 +383,7 @@ class HydrogeologyApp:
                 para_carbonate,
                 para_calcium,
                 para_bicarbonate,
+                para_conductivity
             ]
         )
         if len(keys_repetidos) > 0:
@@ -387,6 +402,7 @@ class HydrogeologyApp:
             para_carbonate: "Carbonato (mg/L)",
             para_calcium: "Calcio (mg/L)",
             para_bicarbonate: "Bicarbonato (mg/L)",
+            para_conductivity: "Conductividad (µS/cm)"
         }
         self.table_mannagement.df_data = calculate_meq_table(
             self.data,
